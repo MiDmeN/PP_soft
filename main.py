@@ -1,9 +1,15 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import time
 from Tkinter import *
 
-root = Tk()
-root.title("Панель управления")
 
+class PP_soft:
+    def __init__(self,root):
+        self.root=root
+        root.title("Панель управления")
+
+
+
+root = Tk()
+app=PP_soft(root)
 root.mainloop()
