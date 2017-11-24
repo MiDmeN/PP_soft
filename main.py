@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+import time
 from Tkinter import *
 
 
@@ -41,12 +42,14 @@ class PP_soft:
         op_m1.grid(row=7, column=1, columnspan=2)
         op_m2 = Button(self.frame, text="Результаты осн Ч2", width=w, height=h)
         op_m2.grid(row=8, column=1, columnspan=2)
-        start_t = Button(self.frame, text="Старт", width=w, height=h)
-        rs_t = Button(self.frame, text="Сброс", width=w, height=h)
+        self.start_t = Button(self.frame, text="Старт", width=w, height=h)
+        self.rs_t = Button(self.frame, text="Сброс", width=w, height=h)
 
         # Привязка кнопок
         self.op.bind("<Button-1>", self.op_win)
         op_t.bind("<Button-1>", self.c_timer)
+        self.start_t.bind("<Button-1>", self.timer)
+        self.rs_t.bind("<Button-1>", self.res_t)
 
     def minsec(self, sec):
         min = (sec // 60) % 60
@@ -62,12 +65,15 @@ class PP_soft:
         return min, sec
 
     def init_timer(self):
+        print(self.s)
         min, sec = self.minsec(self.s)
-        second = self.canvas.create_text((self.ww / 2), (self.wh / 2), text=(min + ':' + sec), font=('Arial', 300), fill="White")
-#        if self.s > 10:
-#            print ("Many")
-#        else:
-#            print ("Low")
+        self.second = self.canvas.create_text((self.ww / 2), (self.wh / 2), text=(min + ':' + sec), font=('Arial', 300),
+                                              fill="White")
+
+        if self.s > 10:
+            print ("Many")
+        else:
+            print ("Low")
 
     # Открыть окно
     def op_win(self, event):
@@ -86,13 +92,33 @@ class PP_soft:
     # открыть таймер
     def c_timer(self, event):
         self.s = int(self.isec.get())
-        print(self.s)
         self.canvas = Canvas(self.win, width=(self.x / 2), height=self.y, bg="Black")
         self.canvas.pack(fill=BOTH, expand=1)
         self.wh, self.ww = self.canvas.canvasx(self.win.winfo_height()), self.canvas.canvasy(self.win.winfo_width())
         self.init_timer()
-#        start_t.grid(row=9, column=1, columnspan=2)
-#        rs_t.grid(row=10, column=1, columnspan=2)
+        self.start_t.grid(row=9, column=1, columnspan=2)
+        self.rs_t.grid(row=10, column=1, columnspan=2)
+
+    def timer(self, event):
+        print("Таймер запущен")
+        while self.s >= 1:
+            time.sleep(1)
+            self.root.update()
+            self.canvas.delete(self.second)
+            self.s -= 1
+            self.init_timer()
+        else:
+            time.sleep(1)
+            self.root.update()
+            self.canvas.delete(self.second)
+            self.init_timer()
+
+    # Сбросить счетчик таймер
+    def res_t(self, event):
+        self.s = int(self.isec.get())
+        self.root.update()
+        self.canvas.delete(self.second)
+        self.init_timer()
 
     @property
     def start(self):
