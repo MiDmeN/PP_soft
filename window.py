@@ -1,8 +1,14 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+from Tkinter import *
+
 # Сформировать панель управления
-@property
+# @property
 def cp(self):
+    print("OK")
     # Получаем размер экрана
     self.x, self.y = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
+    print self.x, self.y
     # Заголовок окна
     label = Label(self.frame, text="Поедим-Подумаем", font=('Arial', 20), fg="Red").grid(row=1, column=1,
                                                                                          columnspan=2,

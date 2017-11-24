@@ -11,7 +11,7 @@ class PP_soft:
         self.root.title("Панель управления")
         self.frame = Frame(self.root)
         self.frame.grid()
-        self.cp
+        window.cp(self)
 
     def minsec(self, sec):
         min = (sec // 60) % 60
