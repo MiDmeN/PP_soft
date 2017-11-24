@@ -42,13 +42,13 @@ class PP_soft:
         op_m1.grid(row=7, column=1, columnspan=2)
         op_m2 = Button(self.frame, text="Результаты осн Ч2", width=w, height=h)
         op_m2.grid(row=8, column=1, columnspan=2)
-        self.start_t = Button(self.frame, text="Старт", width=w, height=h)
+        self.ss_t = Button(self.frame, text="Старт", width=w, height=h)
         self.rs_t = Button(self.frame, text="Сброс", width=w, height=h)
 
         # Привязка кнопок
         self.op.bind("<Button-1>", self.op_win)
         op_t.bind("<Button-1>", self.c_timer)
-        self.start_t.bind("<Button-1>", self.timer)
+        self.ss_t.bind("<Button-1>", self.timer)
         self.rs_t.bind("<Button-1>", self.res_t)
 
     def minsec(self, sec):
@@ -100,12 +100,24 @@ class PP_soft:
         self.canvas.pack(fill=BOTH, expand=1)
         self.wh, self.ww = self.canvas.canvasx(self.win.winfo_height()), self.canvas.canvasy(self.win.winfo_width())
         self.init_timer()
-        self.start_t.grid(row=9, column=1, columnspan=2)
+        self.ss_t.grid(row=9, column=1, columnspan=2)
         self.rs_t.grid(row=10, column=1, columnspan=2)
 
+    #Таймер обратного отсчета
     def timer(self, event):
-        print("Таймер запущен")
+        self.st = 0
+        self.ss_t.config(text="Стоп")
+        self.ss_t.bind("<Button-1>", self.st_t)
         while self.s >= 1:
+            if self.st == 1:
+                break
+                self.root.update()
+                self.canvas.delete(self.second)
+                self.s = 0
+                self.init_timer()
+                self.root.update()
+                self.canvas.delete(self.second)
+
             time.sleep(1)
             self.root.update()
             self.canvas.delete(self.second)
@@ -116,6 +128,13 @@ class PP_soft:
             self.root.update()
             self.canvas.delete(self.second)
             self.init_timer()
+
+    def st_t(self, event):
+        self.st=1
+        self.s=0
+        self.init_timer()
+        self.root.update()
+        self.canvas.delete(self.second)
 
     # Сбросить счетчик таймер
     def res_t(self, event):
