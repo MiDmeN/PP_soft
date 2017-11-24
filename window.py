@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 from Tkinter import *
+import timer
 
 # Сформировать панель управления
 # @property
@@ -40,6 +41,6 @@ def cp(self):
     # Привязка кнопок
     self.op.bind("<Button-1>", self.op_win)
     op_t.bind("<Button-1>", self.c_timer)
-    self.ss_t.bind("<Button-1>", self.timer)
+    self.ss_t.bind("<Button-1>", timer.w_timer)
     self.rs_t.bind("<Button-1>", self.res_t)
 
