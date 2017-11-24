@@ -67,13 +67,17 @@ class PP_soft:
     def init_timer(self):
         print(self.s)
         min, sec = self.minsec(self.s)
-        self.second = self.canvas.create_text((self.ww / 2), (self.wh / 2), text=(min + ':' + sec), font=('Arial', 300),
-                                              fill="White")
+        self.second = self.canvas.create_text((self.ww / 2), (self.wh / 2), text=(min + ':' + sec), font=('Arial', 300))
 
         if self.s > 10:
             print ("Many")
+            self.canvas.itemconfig(self.second, fill="White")
+        elif 10 >= self.s > 0:
+            print ("Middle")
+            self.canvas.itemconfig(self.second, fill="Red")
         else:
             print ("Low")
+            self.canvas.itemconfig(self.second, fill="Yellow")
 
     # Открыть окно
     def op_win(self, event):
