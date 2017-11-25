@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import time
 import window
 import timer
 from Tkinter import *
@@ -35,7 +34,7 @@ class PP_soft:
         self.canvas = Canvas(self.win, width=(self.x / 2), height=self.y, bg="Black")
         self.canvas.pack(fill=BOTH, expand=1)
         self.wh, self.ww = self.canvas.canvasx(self.win.winfo_height()), self.canvas.canvasy(self.win.winfo_width())
-        self.init_timer()
+        timer.init_timer(self)
         self.ss_t.grid(row=9, column=1, columnspan=2)
         self.rs_t.grid(row=10, column=1, columnspan=2)
 

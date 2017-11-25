@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-from Tkinter import *
 import time
 
 
@@ -20,7 +19,7 @@ def minsec(self, sec):
 
 def init_timer(self):
     print(self.s)
-    min, sec = self.minsec(self.s)
+    min, sec = minsec(self, self.s)
     self.second = self.canvas.create_text((self.ww / 2), (self.wh / 2), text=(min + ':' + sec), font=('Arial', 300))
 
     if self.s > 10:
